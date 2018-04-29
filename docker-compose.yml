@@ -133,6 +133,7 @@ services:
           - INSTALL_IMAGE_OPTIMIZERS=${PHP_FPM_INSTALL_IMAGE_OPTIMIZERS}
           - INSTALL_IMAGEMAGICK=${PHP_FPM_INSTALL_IMAGEMAGICK}
         dockerfile: "Dockerfile-${PHP_VERSION}"
+      restart: always
       volumes:
         - ./php-fpm/php${PHP_VERSION}.ini:/usr/local/etc/php/php.ini
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
@@ -169,6 +170,7 @@ services:
         args:
           - PHP_UPSTREAM_CONTAINER=${NGINX_PHP_UPSTREAM_CONTAINER}
           - PHP_UPSTREAM_PORT=${NGINX_PHP_UPSTREAM_PORT}
+      restart: always
       volumes:
         - ${APP_CODE_PATH_HOST}:${APP_CODE_PATH_CONTAINER}
         - ${NGINX_HOST_LOG_PATH}:/var/log/nginx
