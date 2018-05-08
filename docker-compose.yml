@@ -384,6 +384,7 @@ services:
         - "${REDIS_PORT}:6379"
       networks:
         - backend
+      restart: always
 
 ### Aerospike ##########################################
     aerospike:
