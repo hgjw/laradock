@@ -4,7 +4,8 @@
 #--------------------------------------------------------------------------
 #
 
-FROM php:7.0-alpine
+ARG PHP_VERSION=${PHP_VERSION}
+FROM php:${PHP_VERSION}-alpine
 
 LABEL maintainer="Mahmoud Zalt <mahmoud@zalt.me>"
 
@@ -21,8 +22,14 @@ RUN apk --update add wget \
   libgsasl-dev \
   supervisor
 
-RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql mcrypt tokenizer xml
-RUN pecl channel-update pecl.php.net && pecl install memcached && docker-php-ext-enable memcached
+RUN docker-php-ext-install mysqli mbstring pdo pdo_mysql tokenizer xml pcntl
+RUN pecl channel-update pecl.php.net && pecl install memcached mcrypt-1.0.1 && docker-php-ext-enable memcached
+
+#Install BCMath package:
+ARG INSTALL_BCMATH=false
+RUN if [ ${INSTALL_BCMATH} = true ]; then \
+    docker-php-ext-install bcmath \
+;fi
 
 # Install PostgreSQL drivers:
 ARG INSTALL_PGSQL=false
@@ -54,7 +61,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #
 # If you need to modify this image, feel free to do it right here.
 #
-	# -- Your awesome modifications go here -- #
+    # -- Your awesome modifications go here -- #
 
 #
 #--------------------------------------------------------------------------
@@ -62,7 +69,7 @@ ENTRYPOINT ["/usr/bin/supervisord", "-n", "-c",  "/etc/supervisord.conf"]
 #--------------------------------------------------------------------------
 #
 
-RUN php -v | head -n 1 | grep -q "PHP 7.0."
+RUN php -v | head -n 1 | grep -q "PHP ${PHP_VERSION}."
 
 #
 #--------------------------------------------------------------------------
