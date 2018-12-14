@@ -142,3 +142,6 @@ function fs() {
 		du $arg .[^.]* ./*;
 	fi;
 }
+
+# yii aliases
+alias yii="php ./yii"
