@@ -580,6 +580,7 @@ services:
         context: ./certbot
       volumes:
         - ${DATA_PATH_HOST}/certbot/certs/:/var/certs
+        - ${DATA_PATH_HOST}/certbot/letsencrypt/:/etc/letsencrypt
         - ./certbot/letsencrypt/:/var/www/letsencrypt
       environment:
         - CN=fake.domain.com
