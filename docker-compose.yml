@@ -153,6 +153,7 @@ services:
         - backend
       links:
         - docker-in-docker
+      restart: always
 
 ### PHP-FPM ##############################################
     php-fpm:
@@ -232,6 +233,7 @@ services:
         - backend
       links:
         - docker-in-docker
+      restart: always
 
 ### PHP Worker ############################################
     php-worker:
@@ -267,6 +269,7 @@ services:
         - "dockerhost:${DOCKER_HOST_IP}"
       networks:
         - backend
+      restart: always
 ### Laravel Horizon ############################################
     laravel-horizon:
       build:
@@ -315,6 +318,7 @@ services:
       networks:
         - frontend
         - backend
+      restart: always
 
 ### Blackfire ########################################
     blackfire:
@@ -396,6 +400,7 @@ services:
         - "${MYSQL_PORT}:3306"
       networks:
         - backend
+      restart: always
 
 ### Percona ################################################
     percona:
@@ -520,6 +525,7 @@ services:
         - ${DATA_PATH_HOST}/mongo_config:/data/configdb
       networks:
         - backend
+      restart: always
 
 ### RethinkDB ##############################################
     rethinkdb:
@@ -540,6 +546,7 @@ services:
         - "${REDIS_PORT}:6379"
       networks:
         - backend
+      restart: always
 
 ### Redis Cluster ##########################################
     redis-cluster:
@@ -781,6 +788,7 @@ services:
       networks:
         - frontend
         - backend
+      restart: always
 
 ### Logstash ##############################################
     logstash:
