@@ -192,6 +192,15 @@ RUN if [ ${INSTALL_TAINT} = true ]; then \
     docker-php-ext-enable taint \
 ;fi
 
+###########################################################################
+# sysvmsg EXTENSION
+###########################################################################
+
+ARG INSTALL_SYSVMSG=false
+RUN if [ ${INSTALL_SYSVMSG} = true ]; then \
+    docker-php-ext-install sysvmsg \
+;fi
+
 #
 #--------------------------------------------------------------------------
 # Optional Supervisord Configuration
