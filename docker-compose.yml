@@ -627,6 +627,7 @@ services:
         - php-fpm
       networks:
         - backend
+      restart: always
 
 ### Cassandra ############################################
     cassandra:
