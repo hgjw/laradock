@@ -835,6 +835,9 @@ RUN if [ ${INSTALL_FAKETIME} = true ]; then \
     echo "/usr/lib/x86_64-linux-gnu/faketime/libfaketime.so.1" > /etc/ld.so.preload \
 ;fi
 
+# kindom-test的https配置有问题，降低openssl的安全等级
+RUN sed -i 's/CipherString = DEFAULT@SECLEVEL=2/CipherString = DEFAULT@SECLEVEL=1/' /etc/ssl/openssl.cnf
+
 WORKDIR /var/www
 
 CMD ["php-fpm"]
